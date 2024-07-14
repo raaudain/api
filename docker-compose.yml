@@ -1,0 +1,10 @@
+---
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3773:3773"
+    restart: unless-stopped
