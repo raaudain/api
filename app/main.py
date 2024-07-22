@@ -33,4 +33,4 @@ def download_video(video_id, background_tasks: BackgroundTasks):
     fh.download_and_convert_video(video_id)
     video_file = fh.get_file()
     background_tasks.add_task(fh.clean_up)
-    return FileResponse(video_file, media_type='video/mkv', filename=video_file)
+    return FileResponse(video_file, media_type="video/mkv", filename=video_file)
