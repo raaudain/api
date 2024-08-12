@@ -14,16 +14,23 @@ async def notify_clock(request: Request):
     """Processes post request and sends data to pixel clock as notification"""
     data = await request.json()
     processed_notification = process_notification(data)
-    url = processed_notification.get("url")
-    payload = processed_notification.get("payload")
+    url = processed_notification["url"]
+    payload = processed_notification["payload"]
     send_request(url, payload)
+
+    # This request updates media library
+    event = process_notification["event"]
+    if event.lower() == "download":
+        headers = {"X-Emby-Token": ""}
+        scan_library_endpoint = "http://localhost:8096/Library/Refresh"
+        send_request(scan_library_endpoint, headers=headers, payload={})
 
 @app.get("/set_clock_mode")
 def change_clock_mode():
     """Changes pixel clocks setting's settings from day mode to night mode and vice versa"""
     settings = set_clock_mode()
-    url = settings.get("url")
-    payload = settings.get("payload")
+    url = settings["url"]
+    payload = settings["payload"]
     send_request(url, payload)
 
 @app.get("/ytd/{video_id}")

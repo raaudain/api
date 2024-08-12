@@ -26,5 +26,5 @@ def process_notification(data):
         quality = data["release"]["quality"]
         message = f"{event}: {movie} ({quality})"
     
-    payload.update({"text": message, "icon": icons[service]})
+    payload.update({"text": message, "icon": icons[service], "event": event})
     return {"url": url, "payload": payload}
