@@ -19,7 +19,7 @@ async def notify_clock(request: Request):
     send_request(url, payload)
 
     # This request updates media library
-    event = process_notification["event"]
+    event = payload["event"]
     if event.lower() == "download":
         headers = {"X-Emby-Token": ""}
         scan_library_endpoint = "http://localhost:8096/Library/Refresh"
